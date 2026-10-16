@@ -8,11 +8,19 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+// With `wasmbind` on wasm32 the JS bindings in `mod.rs` replace everything below,
+// so none of it is reached.
+#![cfg_attr(
+    all(target_arch = "wasm32", not(target_os = "wasi"), feature = "wasmbind"),
+    allow(dead_code)
+)]
+
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use super::{FixedOffset, Local};
 use crate::{DateTime, Datelike, LocalResult, NaiveDate, NaiveDateTime, NaiveTime, Timelike};
 
+#[cfg(not(all(target_arch = "wasm32", not(target_os = "wasi"), feature = "wasmbind")))]
 pub(super) fn now() -> DateTime<Local> {
     tm_to_datetime(Timespec::now().local())
 }
