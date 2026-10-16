@@ -105,9 +105,9 @@ jobs:
       - uses: Swatinem/rust-cache@v1
 
       - name: Install node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: "12"
+          node-version: "22"
 
       - name: Install wasm-pack
         run: |
@@ -139,9 +139,9 @@ jobs:
           override: true
 
       - name: Install node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: "12"
+          node-version: "22"
 
       - name: Build and Test
         run: bash ci/github.sh
